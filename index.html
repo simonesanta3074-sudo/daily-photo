@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Photo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Daily Photo</h1>
+
+    <p>Select a date between September 21 and December 23, 2025</p>
+
+    <input 
+      type="date"
+      id="datePicker"
+      min="2025-09-21"
+      max="2025-12-23"
+    >
+
+    <div class="buttons hidden" id="buttons">
+      <button id="prevButton">Previous day</button>
+      <button id="nextButton">Next day</button>
+    </div>
+
+    <p id="caption"></p>
+
+    <img id="photo">
+
+    <p id="message"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
