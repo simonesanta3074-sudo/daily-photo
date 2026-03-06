@@ -9,9 +9,9 @@ let buttons = document.getElementById("buttons");
 
 
 let descriptions = {
-  "2025-09-21": "Our first photo together.",
-  "2025-09-22": "This day felt really special.",
-  "2025-09-23": "I love the light in this picture."
+  "2025-09-21": "My first fucking maccies",
+  "2025-09-22": "I mean",
+  "2025-09-23": "boh"
 };
 
 photo.classList.add("hidden");
