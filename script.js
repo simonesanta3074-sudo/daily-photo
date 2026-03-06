@@ -2,9 +2,17 @@ let datePicker = document.getElementById("datePicker");
 let photo = document.getElementById("photo");
 let message = document.getElementById("message");
 let caption = document.getElementById("caption");
+let description = document.getElementById("description");
 let prevButton = document.getElementById("prevButton");
 let nextButton = document.getElementById("nextButton");
 let buttons = document.getElementById("buttons");
+
+
+let descriptions = {
+  "2025-09-21": "Our first photo together.",
+  "2025-09-22": "This day felt really special.",
+  "2025-09-23": "I love the light in this picture."
+};
 
 photo.classList.add("hidden");
 
@@ -15,6 +23,7 @@ function loadPhoto() {
     photo.src = "";
     photo.classList.add("hidden");
     caption.textContent = "";
+    description.textContent = "";
     message.textContent = "";
     buttons.classList.add("hidden");
     return;
@@ -22,27 +31,40 @@ function loadPhoto() {
 
   buttons.classList.remove("hidden");
 
+  if (selectedDate < datePicker.min || selectedDate > datePicker.max) {
+    photo.src = "";
+    photo.classList.add("hidden");
+    caption.textContent = "";
+    description.textContent = "";
+    message.textContent = "Please choose a date between September 21 and December 23, 2025.";
+    return;
+  }
+
   let imagePath = "photos/" + selectedDate + ".jpeg";
 
   photo.onload = function () {
     photo.classList.remove("hidden");
+    caption.textContent = "Photo from " + selectedDate;
+    description.textContent = descriptions[selectedDate] || "";
     message.textContent = "";
   };
 
   photo.onerror = function () {
     photo.src = "";
     photo.classList.add("hidden");
-    caption.textContent = "";
-    message.textContent = "No photo available for this date";
+    caption.textContent = "Photo from " + selectedDate;
+    description.textContent = "";
+    message.textContent = "No photo available for this date.";
   };
 
   photo.src = imagePath;
-  caption.textContent = "Photo from " + selectedDate;
 }
 
-datePicker.addEventListener("change", loadPhoto);
+function goToPreviousDay() {
+  if (datePicker.value === "") {
+    return;
+  }
 
-prevButton.addEventListener("click", function () {
   let currentDate = new Date(datePicker.value);
   currentDate.setDate(currentDate.getDate() - 1);
 
@@ -52,9 +74,13 @@ prevButton.addEventListener("click", function () {
     datePicker.value = currentDate.toISOString().split("T")[0];
     loadPhoto();
   }
-});
+}
 
-nextButton.addEventListener("click", function () {
+function goToNextDay() {
+  if (datePicker.value === "") {
+    return;
+  }
+
   let currentDate = new Date(datePicker.value);
   currentDate.setDate(currentDate.getDate() + 1);
 
@@ -64,4 +90,8 @@ nextButton.addEventListener("click", function () {
     datePicker.value = currentDate.toISOString().split("T")[0];
     loadPhoto();
   }
-});
+}
+
+datePicker.addEventListener("change", loadPhoto);
+prevButton.addEventListener("click", goToPreviousDay);
+nextButton.addEventListener("click", goToNextDay);
